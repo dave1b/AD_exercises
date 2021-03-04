@@ -55,7 +55,7 @@ public class Liste {
 		return 0;
 	}
 	
-	public boolean isExisting(Node node) {
+	public boolean contains(Node node) {
 		if(first != null) {
 			Node current = first;
 			if(first.equals(node)) {
