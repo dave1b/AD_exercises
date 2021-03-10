@@ -1,10 +1,11 @@
-package trees;
+package ch.hslu.trees;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
 import ch.hslu.ownDatastructures.Node;
+import ch.hslu.trees.Knoten;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 class KnotenTest {

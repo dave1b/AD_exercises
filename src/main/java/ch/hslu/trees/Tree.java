@@ -1,4 +1,4 @@
-package trees;
+package ch.hslu.trees;
 
 public interface Tree {
 
