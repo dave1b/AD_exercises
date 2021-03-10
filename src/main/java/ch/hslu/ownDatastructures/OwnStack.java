@@ -1,4 +1,4 @@
-package ch.hslu.sw02;
+package ch.hslu.ownDatastructures;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

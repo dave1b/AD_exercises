@@ -1,9 +1,11 @@
-package ch.hslu.sw02;
+package ch.hslu.ownDatastructures;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import ch.hslu.ownDatastructures.OwnQueue;
 
 class OwnQueueTest {
 

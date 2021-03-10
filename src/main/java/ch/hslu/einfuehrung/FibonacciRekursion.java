@@ -17,12 +17,12 @@ public class FibonacciRekursion {
 	public static void main(final String[] args) {
 		
 		
-		System.out.println(fib(8));
-		System.out.println(formelFib(8));
-		fibonacciReihe.stream()
-		.forEach(t -> System.out.println(t));		
+//		System.out.println(fib(8));
+		System.out.println(formelFib(3));
+//		fibonacciReihe.stream()
+//		.forEach(t -> System.out.println(t));		
 //		LOG.info(isFibonacci(200));
-		LOG.info(nextFibonacci(3));
+//		LOG.info(nextFibonacci(3));
 	}
 	
 // Rekursiv

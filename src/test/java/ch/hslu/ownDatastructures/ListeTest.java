@@ -1,9 +1,12 @@
-package ch.hslu.sw02;
+package ch.hslu.ownDatastructures;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 import org.junit.jupiter.api.Test;
+
+import ch.hslu.ownDatastructures.Liste;
+import ch.hslu.ownDatastructures.Node;
 
 class ListeTest {
 
