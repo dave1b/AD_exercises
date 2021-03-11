@@ -70,5 +70,25 @@ class KnotenTest {
 	}
 	
 	
+	@Test
+	void testSearch() {
+		Knoten root = new Knoten(5);
+		root.add(new Knoten(2));
+		root.add(new Knoten(3));
+		root.add(new Knoten(4));
+		root.add(new Knoten(26));
+		root.add(new Knoten(0));
+		root.add(new Knoten(1));
+		root.add(new Knoten(-5));
+		assertTrue(root.search(new Knoten(2)));
+		assertTrue(root.search(new Knoten(-5)));
+		assertFalse(root.search(new Knoten(99)));
+		assertFalse(root.search(new Knoten(-6)));
+	}@Test
+	public void testHasChildren() throws Exception {
+		throw new RuntimeException("not yet implemented");
+	}
+	
+	
 
 }
