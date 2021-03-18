@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class OwnStack implements Stack {
+public class OwnStack implements StackInterface {
 
 	
 	static private final Logger LOG = LogManager.getLogger(OwnStack.class);
@@ -20,7 +20,7 @@ public class OwnStack implements Stack {
 	@Override
 	public void push(Object o) {
 		if(current+1== maxSize) {
-			LOG.error("Max size of the Stack reached. Value was not safed!");
+			LOG.error("Max size of the StackInterface reached. Value was not safed!");
 		} else {
 		if (stack[0] != null) {
 			current++;
