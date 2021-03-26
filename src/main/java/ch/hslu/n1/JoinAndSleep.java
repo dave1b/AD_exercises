@@ -45,7 +45,7 @@ public class JoinAndSleep implements Runnable {
 
 	}
 
-	public static void main(String args[]) throws InterruptedException {
+	public static void main(String args[]) {
 		Thread thread3 = new Thread(new JoinAndSleep(), "Thread3");
 		Thread thread2 = new Thread(new JoinAndSleep(thread3), "Thread2");
 		Thread thread1 = new Thread(new JoinAndSleep(thread2), "Thread1");
