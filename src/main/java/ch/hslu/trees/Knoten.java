@@ -12,6 +12,7 @@ public class Knoten implements Tree, Comparable<Knoten> {
 	private int currentValue;
 	private int haschCode;
 
+	
 	public Knoten(int value) {
 		this.currentValue = value;
 		this.haschCode = this.hashCode();
@@ -159,7 +160,7 @@ public class Knoten implements Tree, Comparable<Knoten> {
 		if (this.getRightChild() != null) {
 			this.getRightChild().deleteWithoutChildren(o);
 		}
-//			LOG.debug("No Item was deleted. Either it had children or it didnt exist");
+//			LOG.debug("No Item was deleted. Either it has children or it didnt exist");
 
 	}
 

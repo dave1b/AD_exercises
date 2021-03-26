@@ -72,11 +72,7 @@ public class PerformanceIntGenerator{
 		PerformanceIntGenerator.returnData(iterationen);
 		PerformanceIntGenerator.returnDataStack(iterationen);
 		PerformanceIntGenerator.returnDataOwnStack(iterationen);
-		PerformanceIntGenerator.returnDataDeque(iterationen);
-		
-		
-		
-		
+		PerformanceIntGenerator.returnDataDeque(iterationen);	
 	}
 	
 	

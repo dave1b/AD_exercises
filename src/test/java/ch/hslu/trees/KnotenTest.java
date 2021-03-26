@@ -2,6 +2,7 @@ package ch.hslu.trees;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import ch.hslu.ownDatastructures.Node;
@@ -84,11 +85,11 @@ class KnotenTest {
 		assertTrue(root.search(new Knoten(-5)));
 		assertFalse(root.search(new Knoten(99)));
 		assertFalse(root.search(new Knoten(-6)));
-	}@Test
+	}
+	
+	@Test
+	@Disabled
 	public void testHasChildren() throws Exception {
 		throw new RuntimeException("not yet implemented");
 	}
-	
-	
-
 }

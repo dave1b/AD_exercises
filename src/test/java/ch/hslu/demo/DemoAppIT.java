@@ -25,12 +25,12 @@ import org.junit.jupiter.api.Test;
 final class DemoAppIT {
 
     /**
-     * Demo-Test für Parameterübergabe an Testfall. Sinnvoll für Interaktion mit
+     * Ballspiel-Test für Parameterübergabe an Testfall. Sinnvoll für Interaktion mit
      * Dateisystem.
      */
     @Test
     void testTestParameter() {
         DemoApp.main(new String[0]);
-        assertTrue(true); // FAKE Test, nur für Demo!
+        assertTrue(true); // FAKE Test, nur für Ballspiel!
     }
 }
