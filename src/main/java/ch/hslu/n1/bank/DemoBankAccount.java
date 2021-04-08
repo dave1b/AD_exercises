@@ -54,6 +54,7 @@ public final class DemoBankAccount {
         final ArrayList<BankAccount> source = new ArrayList<>();
         final ArrayList<BankAccount> target = new ArrayList<>();
         final int amount = 100000;
+        final int micro = 50000;
         final int number = 5;
         for (int i = 0; i < number; i++) {
             source.add(new BankAccount(amount));
@@ -61,8 +62,10 @@ public final class DemoBankAccount {
         }
         final Thread[] threads = new Thread[number * 2];
         for (int i = 0; i < number; i++) {
-            threads[i] = new Thread(new AccountTask(source.get(i), target.get(i), amount));
-            threads[i + number] = new Thread(new AccountTask(target.get(i), source.get(i), amount));
+            threads[i] = new Thread(new AccountTask(source.get(i), target.get(i), micro));
+            threads[i] = new Thread(new AccountTask(source.get(i), target.get(i), micro));
+            threads[i + number] = new Thread(new AccountTask(target.get(i), source.get(i), micro));
+            threads[i + number] = new Thread(new AccountTask(target.get(i), source.get(i), micro));
         }
         for (final Thread thread : threads) {
             thread.start();

@@ -51,6 +51,12 @@ public class JoinAndSleep implements Runnable {
 		Thread thread1 = new Thread(new JoinAndSleep(thread2), "Thread1");
 
 		thread1.start();
+		try {
+			java.util.concurrent.TimeUnit.MILLISECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }
