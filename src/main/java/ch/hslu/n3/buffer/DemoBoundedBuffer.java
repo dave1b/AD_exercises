@@ -27,70 +27,72 @@ import org.apache.logging.log4j.Logger;
  */
 public final class DemoBoundedBuffer {
 
-    private static final Logger LOG = LogManager.getLogger(DemoBoundedBuffer.class);
+	private static final Logger LOG = LogManager.getLogger(DemoBoundedBuffer.class);
 
-    /**
-     * Privater Konstruktor.
-     */
-    private DemoBoundedBuffer() {
-    }
+	/**
+	 * Privater Konstruktor.
+	 */
+	private DemoBoundedBuffer() {
+	}
+	static int nTask;
+	static int mTask;
+	
+	/**
+	 * Main-Demo.
+	 * 
+	 * @param args not used.
+	 * @throws InterruptedException wenn das warten unterbrochen wird.
+	 */
+	public static void main(final String args[]) throws InterruptedException {
+		final Random random = new Random();
+		final int nPros = 3;
+		final Producer[] producers = new Producer[nPros];
+		final int mCons = 2;
+		final Consumer[] consumers = new Consumer[mCons];
+		final BoundedBufferAdapter<Integer> queue = new BoundedBufferAdapter<>(50);
 
-    /**
-     * Main-Demo.
-     * @param args not used.
-     * @throws InterruptedException wenn das warten unterbrochen wird.
-     */
-    public static void main(final String args[]) throws InterruptedException {
-        final Random random = new Random();
-        final int nPros = 3;
-        final Producer[] producers = new Producer[nPros];
-        final int mCons = 2;
-        final Consumer[] consumers = new Consumer[mCons];
-        final BoundedBufferAdapter<Integer> queue = new BoundedBufferAdapter<>(50);
-        
-  
-        for (int i = 0; i < nPros; i++) {
-            producers[i] = new Producer(queue, random.nextInt(10000));
-            
-            
-            // Threads starten...
-        }
-        for (int i = 0; i < mCons; i++) {
-            consumers[i] = new Consumer(queue);
-            // Threads starten...
-        }
-        
-        
-        final ExecutorService executor = Executors.newCachedThreadPool();
-        
-        for(int nTask = 10; nTask <= 4; nTask++) {
-        	executor.execute(() -> {
-        		Producer prod = new Producer(queue, random.nextInt(10000));
-        		
-        		
-        		
-        		
-        	});
-        }
-        
-        
-        
-        
-        // ...warten bis alles fertig ist
-        int sumPros = 0;
-        for (int i = 0; i < nPros; i++) {
-            LOG.info("Prod " + (char) (i + 65) + " = " + producers[i].getSum());
-            sumPros += producers[i].getSum();
-        }
-        int sumCons = 0;
-        for (int i = 0; i < mCons; i++) {
-            LOG.info("Cons " + (char) (i + 65) + " = " + consumers[i].getSum());
-            sumCons += consumers[i].getSum();
-        }
-        LOG.info(sumPros + " = " + sumCons);
-        
-        
-        
-        
-    }
+		for (int i = 0; i < nPros; i++) {
+			producers[i] = new Producer(queue, random.nextInt(10000));
+
+			// Threads starten...
+		}
+		for (int i = 0; i < mCons; i++) {
+			consumers[i] = new Consumer(queue);
+			// Threads starten...
+		}
+
+		final ExecutorService executorProd = Executors.newCachedThreadPool();
+		final ExecutorService executorCon = Executors.newCachedThreadPool();
+
+		
+		for (nTask = 0; nTask <= nPros; nTask++) {
+			executorProd.execute(() -> {
+				producers[nTask] = new Producer(queue, random.nextInt(10000));
+			});
+		}
+		executorProd.shutdown();
+
+		for (mTask = 0; mTask <= mCons; mTask++) {
+			executorCon.execute(() -> {
+				consumers[mTask] = new Consumer(queue);
+			});
+		}
+		executorCon.shutdown();
+
+		// ...warten bis alles fertig ist
+		int sumPros = 0;
+		for (int i = 0; i < nPros; i++) {
+			LOG.info("Prod " + (char) (i + 65) + " = " + producers[i].getSum());
+			sumPros += producers[i].getSum();
+		}
+
+		int sumCons = 0;
+
+		for (int i = 0; i < mCons; i++) {
+			LOG.info("Cons " + (char) (i + 65) + " = " + consumers[i].getSum());
+			sumCons += consumers[i].getSum();
+		}
+		LOG.info(sumPros + " = " + sumCons);
+
+	}
 }

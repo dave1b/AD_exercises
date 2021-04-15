@@ -45,9 +45,7 @@ public final class RaceHorse implements Runnable {
         runThread = Thread.currentThread();
         LOG.info("Rennpferd " + runThread.getName() + " geht in die Box.");
         try {
-        	synchronized (startSignal) {
             startSignal.acquire();
-        	}
             LOG.info("Rennpferd " + runThread.getName() + " laeuft los...");
             Thread.sleep(random.nextInt(3000));
         } catch (InterruptedException ex) {

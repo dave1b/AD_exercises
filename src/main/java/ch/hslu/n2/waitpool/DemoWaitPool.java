@@ -20,29 +20,30 @@ package ch.hslu.n2.waitpool;
  */
 public final class DemoWaitPool {
 
-    private static final Object LOCK = new Object();
+	private static final Object LOCK = new Object();
 
-    /**
-     * Privater Konstruktor.
-     */
-    private DemoWaitPool() {
-    }
+	/**
+	 * Privater Konstruktor.
+	 */
+	private DemoWaitPool() {
+	}
 
-    /**
-     * Main-Demo.
-     * @param args not used.
-     * @throws InterruptedException wenn das warten unterbrochen wird.
-     */
-    public static void main(final String args[]) throws InterruptedException {
-        final MyTask waiter = new MyTask(LOCK);
-        
-        new Thread(waiter).start();
-        
+	/**
+	 * Main-Demo.
+	 * 
+	 * @param args not used.
+	 * @throws InterruptedException wenn das warten unterbrochen wird.
+	 */
+	public static void main(final String args[]) throws InterruptedException {
+		final MyTask waiter = new MyTask(LOCK);
+
+		new Thread(waiter).start();
+
 //		java.util.concurrent.TimeUnit.MILLISECONDS.sleep(100);
-        Thread.sleep(1000);
+//		Thread.sleep(1000);
 //      java.util.concurrent.TimeUnit.MILLISECONDS.sleep(100);
-        synchronized (LOCK) {
-        LOCK.notify();
-        }
-    }
+		synchronized (LOCK) {
+			LOCK.notify(); // notifyAll() wäre möglich
+		}
+	}
 }

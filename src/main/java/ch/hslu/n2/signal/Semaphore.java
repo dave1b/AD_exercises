@@ -43,7 +43,7 @@ public final class Semaphore {
 			throw new IllegalArgumentException(permits + " < 0");
 		}
 		this.sema = permits;
-		this.limit = permits;
+		this.limit = Integer.MAX_VALUE;
 		count = 0;
 	}
 
@@ -88,6 +88,7 @@ public final class Semaphore {
 	 * @throws java.lang.InterruptedException falls das Warten unterbrochen wird.
 	 */
 	public synchronized void acquire(final int permits) throws InterruptedException {
+		// hier acquire() aufrufen 
 		while (sema < permits) {
 			count = count + permits;
 			this.wait();
@@ -104,11 +105,11 @@ public final class Semaphore {
 	 * @throws Exception
 	 */
 	public synchronized void release() throws Exception {
-		if (sema == limit) {
-			throw new Exception("The max limit of open Semaphors has been reacherd:" + limit);
+		if (sema + 1 > limit) {
+			throw new Exception("The max limit of open Semaphors has been reached:" + limit);
 		} else {
 			sema++;
-			if (limit == sema) {
+			if (count == sema) {
 				this.notifyAll();
 			} else {
 				this.notify();
@@ -124,11 +125,11 @@ public final class Semaphore {
 	 * @throws Exception 
 	 */
 	public synchronized void release(final int permits) throws Exception {
-		if (sema+permits >= limit) {
-			throw new Exception("The max limit of open Semaphors has been reacherd:" + limit);
+		if (sema+permits > limit) {
+			throw new Exception("The max limit of open Semaphors has been reached:" + limit);
 		} else {
 			sema = sema + permits;
-			if (limit == sema) {
+			if (count == sema) {
 				this.notifyAll();
 			} else {
 				this.notify();

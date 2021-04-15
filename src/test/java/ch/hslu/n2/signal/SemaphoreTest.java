@@ -56,6 +56,14 @@ class SemaphoreTest {
 			sem.release(2);;
 		});
 	}
+	
+	@Test
+	void testAquirePermit() throws InterruptedException {
+		Semaphore sema = new Semaphore(3,3);
+		sema.acquire(5);
+		
+		
+	}
 
 	@Test
 	void testDefaultConstructor() {

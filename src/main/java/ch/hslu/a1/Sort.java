@@ -100,7 +100,7 @@ public class Sort implements Comparable {
 			}
 		}
 
-		LOG.info("Die bubbleSort hat: " + (System.currentTimeMillis() - startTime) + " Millisekunden gedauert");
+		LOG.info("Die shellSort hat: " + (System.currentTimeMillis() - startTime) + " Millisekunden gedauert");
 		return a;
 	}
 

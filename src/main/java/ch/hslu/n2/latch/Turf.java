@@ -23,36 +23,36 @@ import org.apache.logging.log4j.Logger;
  */
 public final class Turf {
 
-    private static final Logger LOG = LogManager.getLogger(ch.hslu.n2.latch.Turf.class);
+	private static final Logger LOG = LogManager.getLogger(ch.hslu.n2.latch.Turf.class);
 
-    /**
-     * Privater Konstruktor.
-     */
-    private Turf() {
-    }
+	/**
+	 * Privater Konstruktor.
+	 */
+	private Turf() {
+	}
 
-    /**
-     * Main-Demo.
-     * @param args not used.
-     * @throws InterruptedException 
-     */
-    public static void main(final String[] args) throws InterruptedException {
-        final Synch starterBox = new Latch();
-        Thread thread;
-        Thread[] pferde = new Thread[6];
-        for (int i = 1; i < 6; i++) {
-            pferde[i] = new Thread(new RaceHorse(starterBox), "Horse " + i);
-            pferde[i].start();
-        }
-        LOG.info("Start...");
-      
-    	  java.util.concurrent.TimeUnit.MILLISECONDS.sleep(100);
-	
+	/**
+	 * Main-Demo.
+	 * 
+	 * @param args not used.
+	 * @throws InterruptedException
+	 */
+	public static void main(final String[] args) throws InterruptedException {
+		final Synch starterBox = new Latch();
+		Thread thread;
+		Thread[] pferde = new Thread[6];
+		for (int i = 1; i < 6; i++) {
+			pferde[i] = new Thread(new RaceHorse(starterBox), "Horse " + i);
+			pferde[i].start();
+		}
+		LOG.info("Start...");
 
-        starterBox.release();
+		java.util.concurrent.TimeUnit.MILLISECONDS.sleep(100);
+
+		starterBox.release();
 //        java.util.concurrent.TimeUnit.MILLISECONDS.sleep(100);
 //        for (int i = 1; i < 6; i++) {
 //        	pferde[i].interrupt();
 //        }
-    }
+	}
 }

@@ -17,6 +17,7 @@ package ch.hslu.n2.buffer;
 
 import java.util.ArrayDeque;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Puffer nach dem First In First Out Prinzip mit einer begrenzten Kapazität.
@@ -65,9 +66,7 @@ public final class BoundedBuffer<T> implements Buffer<T> {
 
 	@Override
 	public boolean put(T elem, long millis) throws InterruptedException {
-		long milSek = System.currentTimeMillis();
-		while (System.currentTimeMillis() - milSek< millis) {
-			putSema.acquire();
+		if (putSema.tryAcquire(millis, TimeUnit.MILLISECONDS)) {
 			synchronized (queue) {
 				queue.addFirst(elem);
 			}
@@ -75,38 +74,38 @@ public final class BoundedBuffer<T> implements Buffer<T> {
 			return true;
 		}
 		return false;
+
 	}
 
 	@Override
 	public T get(long millis) throws InterruptedException {
-		T elem;
-		long milSek = System.currentTimeMillis();
-		while (System.currentTimeMillis() - milSek< millis) {
-		takeSema.acquire();
-		synchronized (queue) {
-			elem = queue.removeLast();
+		T elem = null;
+		if (takeSema.tryAcquire(millis, TimeUnit.MILLISECONDS)) {
+			synchronized (queue) {
+				elem = queue.removeLast();
+			}
+			putSema.release();
 		}
-		putSema.release();
 		return elem;
-		}
-		return null;
 	}
 
 	@Override
 	public T first() throws InterruptedException {
 		T ele;
-		synchronized(queue) {
+		synchronized (queue) {
 			ele = queue.getFirst();
-		} return ele;
+		}
+		return ele;
 	}
 
 	@Override
 	public T last() throws InterruptedException {
 		T ele;
-		synchronized(queue) {
+		synchronized (queue) {
 			ele = queue.getLast();
-		} return ele;
-		
+		}
+		return ele;
+
 	}
 
 	@Override

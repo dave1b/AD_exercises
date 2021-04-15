@@ -16,27 +16,29 @@
 package ch.hslu.n2.latch;
 
 /**
- * Eine Synchronisationshilfe, die es ermöglicht, einen oder mehrere Threads warten zu lassen, bis
- * diese durch andere Threads aufgeweckt werden. Latches sperren so lange, bis sie einmal ausgelöst
- * werden. Danach sind sie frei passierbar.
+ * Eine Synchronisationshilfe, die es ermöglicht, einen oder mehrere Threads
+ * warten zu lassen, bis diese durch andere Threads aufgeweckt werden. Latches
+ * sperren so lange, bis sie einmal ausgelöst werden. Danach sind sie frei
+ * passierbar.
  */
 public class Latch implements Synch {
 
-    @Override
-    public void acquire() throws InterruptedException {
-    	try {
-    			this.wait();
-    	} catch (InterruptedException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
-    	
-    }
+	@Override
+	public void acquire() throws InterruptedException {
+		try {
+			synchronized(this) {
+				this.wait();
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-    @Override
-    public void release() {
-    	synchronized(this){
-    	this.notifyAll();
-    	}
-    }
+	@Override
+	public void release() {
+		synchronized (this) {
+			this.notifyAll();
+		}
+	}
 }
