@@ -17,6 +17,8 @@ package ch.hslu.n3.count;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,6 +50,12 @@ public final class SpeedCount {
             executor.submit(new CountTask(counter, counts));
         }
         executor.shutdown();
+        try {
+			executor.awaitTermination(5000, TimeUnit.MILLISECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         long duration = java.lang.System.currentTimeMillis() - startTime;
         System.out.println(duration);
         return duration;
@@ -58,9 +66,9 @@ public final class SpeedCount {
      * @param args not used.
      */
     public static void main(final String args[]) {
-        final int passes = 1;
+        final int passes = 13;
         final int tester = 1;
-        final int counts = 500000;
+        final int counts = 10_000;
         final Counter counterSync = new SynchronizedCounter();
         long sumSync = 0;
         for (int i = 0; i < passes; i++) {
@@ -71,6 +79,7 @@ public final class SpeedCount {
         for (int i = 0; i < passes; i++) {
             sumAtom += speedTest(counterAtom, counts, tester);
         }
+        
         System.out.println(counterSync.get());
         if (counterSync.get() == 0) {
             LOG.info("Sync counter ok");

@@ -24,7 +24,7 @@ public class PrimeCheckParallel {
 
 	public void searchPrimes(int amountOfPrimes) {
 		long startTime = java.lang.System.currentTimeMillis();
-		int amountOfThreads = 50;
+		int amountOfThreads = Runtime.getRuntime().availableProcessors();
 		final ExecutorService executor = Executors.newFixedThreadPool(amountOfThreads);
 		while (primes.get() < amountOfPrimes) {
 			executor.execute(() -> {

@@ -35,6 +35,7 @@ public final class MyTask implements Runnable {
 		this.lock = lock;
 	}
 
+	
 	@Override
 	public void run() {
 		LOG.info("warten...");
