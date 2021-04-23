@@ -1,5 +1,7 @@
 package ch.hslu.a1;
 
+import java.util.Random;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -75,9 +77,7 @@ public class Sort implements Comparable {
 
 	public static int[] shellSort(final int[] a) {
 		long startTime = System.currentTimeMillis();
-
 		int n = a.length;
-
 		// Start with a big gap, then reduce the gap
 		for (int gap = n / 2; gap > 0; gap /= 2) {
 			// Do a gapped insertion sort for this gap size.
@@ -104,6 +104,75 @@ public class Sort implements Comparable {
 		return a;
 	}
 
+	static final char[] quickSort(final char[] a, final int left, final int right) {
+		int up = left; // linke Grenze
+		int down = right - 1; // rechte Grenze (ohne Trennelement)
+		char t = a[right]; // rechtes Element als Trennelement
+		boolean allChecked = false;
+		do {
+			while (a[up] < t) {
+				up++; // suche grösseres (>=) Element von links an
+			}
+			while ((a[down] >= t) && (down > up)) {
+				down--; // suche echt kleineres (<) Element von rechts an
+			}
+			if (down > up) { // solange keine Überschneidung
+				exchange(a, up, down);
+				up++;
+				down--; // linke und rechte Grenze verschieben
+			} else {
+				allChecked = true; // Austauschen beendet
+			}
+		} while (!allChecked);
+		exchange(a, up, right); // Trennelement an endgültige Position (a[up])
+		if (left < (up - 1))
+			quickSort(a, left, (up - 1)); // linke Hälfte
+		if ((up + 1) < right)
+			quickSort(a, (up + 1), right); // rechte Hälfte, ohne T’Elt.
+		return a;
+	}
+	static final int[] quickSort(final int[] a, final int left, final int right) {
+		int up = left; // linke Grenze
+		int down = right - 1; // rechte Grenze (ohne Trennelement)
+		int t = a[right]; // rechtes Element als Trennelement
+		boolean allChecked = false;
+		do {
+			while (a[up] < t) {
+				up++; // suche grösseres (>=) Element von links an
+			}
+			while ((a[down] >= t) && (down > up)) {
+				down--; // suche echt kleineres (<) Element von rechts an
+			}
+			if (down > up) { // solange keine Überschneidung
+				exchange(a, up, down);
+				up++;
+				down--; // linke und rechte Grenze verschieben
+			} else {
+				allChecked = true; // Austauschen beendet
+			}
+		} while (!allChecked);
+		exchange(a, up, right); // Trennelement an endgültige Position (a[up])
+		if (left < (up - 1))
+			quickSort(a, left, (up - 1)); // linke Hälfte
+		if ((up + 1) < right)
+			quickSort(a, (up + 1), right); // rechte Hälfte, ohne T’Elt.
+		return a;
+	}
+
+	// Hilfsmethode für quickSort()
+	private static final void exchange(final char[] a, final int firstIndex, final int secondIndex) {
+		char tmp;
+		tmp = a[firstIndex];
+		a[firstIndex] = a[secondIndex];
+		a[secondIndex] = tmp;
+	}
+	private static final void exchange(final int[] a, final int firstIndex, final int secondIndex) {
+		int tmp;
+		tmp = a[firstIndex];
+		a[firstIndex] = a[secondIndex];
+		a[secondIndex] = tmp;
+	}
+
 	public static void printArray(final int[] a) {
 		System.out.println();
 		for (int n : a) {
@@ -112,4 +181,28 @@ public class Sort implements Comparable {
 		System.out.println();
 	}
 
+	public static void printCharArray(final char[] a) {
+		System.out.println();
+		for (char n : a) {
+			System.out.println(n);
+		}
+		System.out.println();
+	}
+
+	public static char[] randomChars(final int length) {
+		char[] charArray = new char[length];
+		Random r = new Random();
+		for (int i = 1; i < length; i++) {
+			charArray[i] = (char) (r.nextInt(26) + 'a');
+		}
+		return charArray;
+	}
+
+	public static int[] randomInts(final int length) {
+		int[] intArray = new int[length];
+		for (int i = 1; i < length; i++) {
+			intArray[i] = (int) (Math.random() * 100000);
+		}
+		return intArray;
+	}
 }
