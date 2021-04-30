@@ -30,7 +30,20 @@ public class Sort implements Comparable {
 		} // a[1]...a[j] sorted
 		LOG.info("Die insertionSort hat: " + (System.currentTimeMillis() - startTime) + " Millisekunden gedauert");
 		return a;
-
+	}
+	public static int[] insertionSort(final int[] a, int min, int max) {
+		int elt;
+		int j;
+		for (int i = min; i < max; i++) {
+			elt = a[i]; // nexteltforinsert
+			j = i; // a[1]..a[j-1] alreadysorted
+			while (a[j - 1] > elt) {
+				a[j] = a[j - 1]; // shiftright
+				j--; // gofurtherleft
+			}
+			a[j] = elt; // insertelt
+		} // a[1]...a[j] sorted
+		return a;
 	}
 
 	public static int[] selectionSort(final int[] a) {
@@ -131,7 +144,7 @@ public class Sort implements Comparable {
 			quickSort(a, (up + 1), right); // rechte Hälfte, ohne T’Elt.
 		return a;
 	}
-	static final int[] quickSort(final int[] a, final int left, final int right) {
+	public static final int[] quickSort(final int[] a, final int left, final int right) {
 		int up = left; // linke Grenze
 		int down = right - 1; // rechte Grenze (ohne Trennelement)
 		int t = a[right]; // rechtes Element als Trennelement
