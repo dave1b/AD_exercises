@@ -12,40 +12,32 @@ public class Sprache {
 	public static boolean isWortLanguage(final String string) {	
 		boolean zeroBefore = false;
 		int length = string.length();
-		int amountOnes = 0;
+		
 		
 		if( string.charAt(0) == '1') {
 			return false;
 		} 
-			zeroBefore = true;
-			if(string.charAt(length-1) == '1') {
-				return false;
-			}
-
+		zeroBefore = true;
+		
+		if(string.charAt(length-1) == '1') {
+			return false;
+		}			
 				
-				
-		for(int i = 1; i <= length-2; i++) {
+		int oneCounter = 0;
+		for(int i = 1; i <= length-1; i++) {
 			if(string.charAt(i) == '0' && zeroBefore) {
 				return false;
 			}  else if (string.charAt(i) == '1' ) {
 				zeroBefore = false;
-				amountOnes++;
-			} 
-		}
-		if(amountOnes%2 == 0) {
-			if(string.length()==1) {
-				return true;
+				oneCounter++;
+			} else if (string.charAt(i) == '0') {
+				if(oneCounter%2 == 0) {
+					return false;
+				}
+				oneCounter = 0;
 			}
-			return false;
-		} else {
-			return true;
 		}
-	}
-
-	public static void main( String args[]) {
-		Sprache.isWortLanguage("111");
-		Boolean b = Sprache.isWortLanguage("1111111111");
-		System.out.println(b);
+		return true;
 	}
 
 
