@@ -13,23 +13,23 @@ class SpracheTest {
 
 	@Test
 	void testIsWortLanguageTrue() {
-		assertEquals(true, Sprache.isWortLanguage("0"));
-		assertEquals(true, Sprache.isWortLanguage("010"));
-		assertEquals(true, Sprache.isWortLanguage("01110"));
-		assertEquals(true, Sprache.isWortLanguage("0111110"));
-		assertEquals(true, Sprache.isWortLanguage("011101110"));
-		assertEquals(true, Sprache.isWortLanguage("0111010111110"));
-		assertEquals(true, Sprache.isWortLanguage("0"));
+		assertTrue( Sprache.isWortLanguage("0"));
+		assertTrue(Sprache.isWortLanguage("010"));
+		assertTrue( Sprache.isWortLanguage("01110"));
+		assertTrue(Sprache.isWortLanguage("0111110"));
+		assertTrue(Sprache.isWortLanguage("011101110"));
+		assertTrue( Sprache.isWortLanguage("0111010111110"));
+		assertTrue(Sprache.isWortLanguage("0"));
 
 	}
 	@Test
 	void testIsWortLanguageFalse() {
-		assertEquals(false, Sprache.isWortLanguage("1"));
-		assertEquals(false, Sprache.isWortLanguage("00"));
-		assertEquals(false, Sprache.isWortLanguage("111"));
-		assertEquals(false, Sprache.isWortLanguage("0110"));
-		assertEquals(false, Sprache.isWortLanguage("0111"));
-		assertEquals(false, Sprache.isWortLanguage("011110"));
+		assertFalse( Sprache.isWortLanguage("1"));
+		assertFalse( Sprache.isWortLanguage("00"));
+		assertFalse( Sprache.isWortLanguage("111"));
+		assertFalse( Sprache.isWortLanguage("0110"));
+		assertFalse( Sprache.isWortLanguage("0111"));
+		assertFalse( Sprache.isWortLanguage("011110"));
 		
 	}
 
